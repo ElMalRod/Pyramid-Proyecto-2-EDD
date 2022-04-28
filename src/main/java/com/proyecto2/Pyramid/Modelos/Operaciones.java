@@ -143,7 +143,7 @@ public class Operaciones {
     public String recibirInsert(String insert, Arbol tree) {
         obtenerValores(insert);
         if (tree.existe(this.item) == false) {
-            verificarInsertar(insert, tree);
+            tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta);
             return "Carta ingresada";
         } else {
             return "Status Code 406";
