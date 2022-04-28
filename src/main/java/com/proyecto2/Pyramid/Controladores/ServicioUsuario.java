@@ -8,12 +8,11 @@ import com.proyecto2.Pyramid.Modelos.Arbol;
 import com.proyecto2.Pyramid.Modelos.Operaciones;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -42,10 +41,6 @@ public class ServicioUsuario {
    @RequestMapping("/ver")
    public String imprimir() {
 
-      for (int i = 0; i < result.size(); i++) {
-         nom = nom + result.get(i);
-      }
-      operaciones.recibirPost(result, tree);
       tree.imprimir(tree.raiz, "", true);
       return result.get(0);
    }
@@ -56,6 +51,18 @@ public class ServicioUsuario {
       String respuesta = operaciones.recibirInsert(data.getInsert(), tree);
 
       return respuesta;
+   }
+
+   @RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = "application/json")
+   public String getDataDelete(@RequestBody Operaciones data) {
+
+      if (data.getDelete_2() != null) {
+         operaciones.ingresarDelete(data.getDelete_1(), data.getDelete_2(), tree);
+      } else {
+         operaciones.ingresarDelete(data.getDelete_1(), tree);
+      }
+
+      return "respuesta";
    }
 
 }

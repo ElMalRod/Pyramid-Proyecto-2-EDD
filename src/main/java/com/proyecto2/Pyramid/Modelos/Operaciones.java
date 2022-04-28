@@ -17,13 +17,10 @@ public class Operaciones {
     String carta;
     String figura;
     String insert;
+    String delete_1, delete_2;
 
     public String getCarta() {
         return carta;
-    }
-
-    public void setCarta(String Carta) {
-        this.carta = carta;
     }
 
     public String getInsert() {
@@ -32,6 +29,22 @@ public class Operaciones {
 
     public void setInsert(String insert) {
         this.insert = insert;
+    }
+
+    public String getDelete_1() {
+        return delete_1;
+    }
+
+    public void setDelete_1(String delete_1) {
+        this.delete_1 = delete_1;
+    }
+
+    public String getDelete_2() {
+        return delete_2;
+    }
+
+    public void setDelete_2(String delete_2) {
+        this.delete_2 = delete_2;
     }
 
     public int getNum() {
@@ -52,41 +65,93 @@ public class Operaciones {
 
     public String recibirPost(List<String> result, Arbol tree) {
 
-        if (tree.verificarDuplicado(tree.raiz, carta) == true) {
-            return "Status Code 406";
-        } else {
-            for (int i = 0; i < result.size(); i++) {
-                verificarInsertar(result.get(i), tree);
-                System.out.println("Carta: " + result.get(i));
+        for (int i = 0; i < result.size(); ++i) {
+            obtenerValores(result.get(i));
+            if (tree.existe(this.item) == false) {
+                tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta);
+            } else {
+                return "Status Code 406";
             }
-            return "Cartas ingresadas";
+
         }
 
+        return "Cartas ingresadas";
+
+    }
+
+    public void ingresarDelete(String d1, String d2, Arbol tree) {
+        /// ver si existe
+        System.out.println("delete 1");
+        int valorD1, itemD1; // auxiliares para carta 1
+        int valorD2, itemD2; // auxilares para carta2
+        obtenerValores(d1);
+        valorD1 = this.num;
+        itemD1 = this.item;
+        System.out.println("D1 " + itemD1);
+        obtenerValores(d2);
+        valorD2 = this.num;
+        itemD2 = this.item;
+        System.out.println("D2 " + itemD2);
+        int suma = valorD1 + valorD2;
+        if (suma == 13) {
+            System.out.println("1. las cartas suman 13");
+            if ((tree.existe(itemD1) == true) && (tree.existe(itemD2) == true)) {
+                Nodo encontrado1 = tree.encontrarNodo(itemD1);
+                Nodo encontrado2 = tree.encontrarNodo(itemD2);
+                System.out.println("2. si existen los nodos");
+                if (encontrado1.derecha == null && encontrado1.izquierda == null) {
+                    if (encontrado2.derecha == null && encontrado2.izquierda == null) {
+                        System.out.println("3. si estan en el ulimo nivel");
+
+                        System.out.println("4. eliminado " + encontrado1.item + " " +
+                                encontrado2.item);
+                        tree.raiz = tree.eliminarNodo(tree.raiz, encontrado1.item);
+                        tree.raiz = tree.eliminarNodo(tree.raiz, encontrado2.item);
+
+                    }
+                }
+            }
+
+        }
+
+        /// si suman 13
+        /// si estan en el ultimo nivel
+
+        // tree.verificarEliminar(d1, d2, tree);
+    }
+
+    public void ingresarDelete(String delete, Arbol tree) {
+        obtenerValores(delete);
+        System.out.println("delete 2");
+        if (this.num == 13) {
+            System.out.println("1. las cartas suman 13");
+            if ((tree.existe(this.item) == true)) {
+                Nodo encontrado1 = tree.encontrarNodo(this.item);
+                System.out.println("2. si existen ");
+                if (encontrado1.derecha == null && encontrado1.izquierda == null) {
+
+                    System.out.println("3. si estan en el ulimo nivel");
+
+                    System.out.println("4. eliminado " + encontrado1.item);
+                    tree.raiz = tree.eliminarNodo(tree.raiz, encontrado1.item);
+
+                }
+            }
+        }
     }
 
     public String recibirInsert(String insert, Arbol tree) {
-        if (tree.verificarDuplicado(tree.raiz, insert) == true) {
-            System.out.println("statues code 400");
-            return "Status Code 406";
-        } else {
+        obtenerValores(insert);
+        if (tree.existe(this.item) == false) {
             verificarInsertar(insert, tree);
-            System.out.println("no debio entrar aqui loco");
             return "Carta ingresada";
+        } else {
+            return "Status Code 406";
         }
+
     }
 
-    public void verificarInsertar(String carta, Arbol tree) {
-
-        /*
-         * Este metodo tiene como funcion:
-         * Primero tenemos que ver si existe la carta , tenemos que extraer numero o
-         * letra y simbolo , agregar el verdadero valor segun el simbolo
-         * Trebol 0
-         * Diamante 20
-         * Corazón 40
-         * Pica 60
-         * por ultimo se hara la insecion al arbol
-         */
+    public void obtenerValores(String carta) {
 
         for (int i = 0; i < carta.length(); i++) {
             // ver si es un numero
@@ -95,10 +160,10 @@ public class Operaciones {
             if (Character.toString(carta.charAt(i)).matches("[0-9?]")) {
 
                 if (carta.contains("10")) {
-                    num = 10;
+                    this.num = 10;
                 } else {
 
-                    num = Character.getNumericValue(carta.charAt(i));
+                    this.num = Character.getNumericValue(carta.charAt(i));
                 }
 
             }
@@ -106,17 +171,17 @@ public class Operaciones {
             if (Character.toString(carta.charAt(i)).matches("[a-z?]")
                     || Character.toString(carta.charAt(i)).matches("[A-Z?]")) {
                 if (carta.charAt(i) == 'A' || carta.charAt(i) == 'a') {
-                    num = 1;
+                    this.num = 1;
 
                 }
                 if (carta.charAt(i) == 'J' || carta.charAt(i) == 'j') {
-                    num = 11;
+                    this.num = 11;
                 }
                 if (carta.charAt(i) == 'Q' || carta.charAt(i) == 'q') {
-                    num = 12;
+                    this.num = 12;
                 }
                 if (carta.charAt(i) == 'K' || carta.charAt(i) == 'k') {
-                    num = 13;
+                    this.num = 13;
                 }
 
             }
@@ -124,28 +189,21 @@ public class Operaciones {
         }
         // guardar figuras y numero backend de la carta
         if (carta.contains("♣")) {
-            figura = "♣";
-            item = num;
+            this.figura = "♣";
+            this.item = num;
         }
         if (carta.contains("♦")) {
-            figura = "♦";
-            item = num + 20;
+            this.figura = "♦";
+            this.item = num + 20;
         }
         if (carta.contains("♥")) {
-            figura = "♥";
-            item = num + 40;
+            this.figura = "♥";
+            this.item = num + 40;
         }
         if (carta.contains("♠")) {
-            figura = "♠";
-            item = num + 60;
+            this.figura = "♠";
+            this.item = num + 60;
         }
-        this.carta = carta;
-
-        System.out.println("-----------------------");
-        System.out.println("numero: " + num);
-        System.out.println("figura: " + figura);
-        System.out.println("item: " + item);
-
-        tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta);
     }
+ 
 }

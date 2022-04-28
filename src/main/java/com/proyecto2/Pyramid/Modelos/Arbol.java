@@ -103,16 +103,16 @@ public class Arbol {
   }
 
   // Delete a node
-  Nodo eliminarNodo(Nodo raiz, int item, int valor, String carta) {
+  Nodo eliminarNodo(Nodo raiz, int item) {
 
     // Find the node to be deleted and remove it
     if (raiz == null) {
       return raiz;
     }
     if (item < raiz.item) {
-      raiz.izquierda = eliminarNodo(raiz.izquierda, item, valor, carta);
+      raiz.izquierda = eliminarNodo(raiz.izquierda, item);
     } else if (item > raiz.item) {
-      raiz.derecha = eliminarNodo(raiz.derecha, item, valor, carta);
+      raiz.derecha = eliminarNodo(raiz.derecha, item);
     } else {
       if ((raiz.izquierda == null) || (raiz.derecha == null)) {
         Nodo temp = null;
@@ -130,7 +130,7 @@ public class Arbol {
       } else {
         Nodo temp = nodoMinimo(raiz.derecha);
         raiz.item = temp.item;
-        raiz.derecha = eliminarNodo(raiz.derecha, temp.item, temp.valor, temp.carta);
+        raiz.derecha = eliminarNodo(raiz.derecha, temp.item);
       }
     }
     if (raiz == null) {
@@ -171,6 +171,7 @@ public class Arbol {
     if (node != null) {
       System.out.print(node.item + " ");
       inOrden(node.izquierda);
+      // imprime node.item
       inOrden(node.derecha);
     }
   }
@@ -178,8 +179,9 @@ public class Arbol {
   void postOrden(Nodo node) {
     if (node != null) {
       System.out.print(node.item + " ");
-      postOrden(node.derecha);
       postOrden(node.izquierda);
+      postOrden(node.derecha);
+      // imprime nodo.item
     }
   }
 
@@ -194,31 +196,47 @@ public class Arbol {
         System.out.print("L----");
         indent += "|  ";
       }
-      System.out.println(currPtr.carta);
+      System.out.println(currPtr.carta+" "+currPtr.item);
       imprimir(currPtr.izquierda, indent, false);
       imprimir(currPtr.derecha, indent, true);
     }
   }
 
-  // ver si esta duplicado
-  public boolean verificarDuplicado(Nodo node, String carta) {
-
-    if (node != null) {
-      if (carta.equals(node.carta)) {
-        System.out.println(carta + "es igual a " + node.carta);
-        duplicado = true;
-        return true;
-      } else {
-        if (duplicado != true) {
-          System.out.println(carta + "NO es igual a " + node.carta);
-          verificarDuplicado(node.izquierda, carta);
-          verificarDuplicado(node.derecha, carta);
-        }
-      }
-    } 
-    // posible error para verificar la carta duplicada
-      return false;
-    
+  // -------------------------------------
+  public boolean existe(int busqueda) {
+    return existe(this.raiz, busqueda);
   }
+
+  private boolean existe(Nodo n, int busqueda) {
+    if (n == null) {
+      return false;
+    }
+    if (n.item == busqueda) {
+      return true;
+    } else if (busqueda < n.item) {
+      return existe(n.izquierda, busqueda);
+    } else {
+      return existe(n.derecha, busqueda);
+    }
+  }
+
+  // ENCONTRAR NODO
+  public Nodo encontrarNodo(int busqueda) {
+    return encontrarNodo(this.raiz, busqueda);
+  }
+
+  private Nodo encontrarNodo(Nodo n, int busqueda) {
+    if (n == null) {
+      return null;
+    }
+    if (n.item == busqueda) {
+      return n; // devuelve el nodo encontrado
+    } else if (busqueda < n.item) {
+      return encontrarNodo(n.izquierda, busqueda);
+    } else {
+      return encontrarNodo(n.derecha, busqueda);
+    }
+  }
+
 
 }
