@@ -162,30 +162,58 @@ public class Arbol {
     return raiz;
   }
 
-  public void preOrden(Nodo node) {
+  public HashMap<Integer, String> preOrden(Nodo node) {
     if (node != null) {
-      System.out.print(node.carta + " ");
+      System.out.println(key+" "+node.carta);
+      mapa.put(key, node.carta);
+      key++;
       preOrden(node.izquierda);
       preOrden(node.derecha);
-    }
+    }   
+    return mapa;
   }
 
-  void inOrden(Nodo node) {
+  private HashMap<Integer, String> inOrden(Nodo node) {
     if (node != null) {
-      System.out.print(node.item + " ");
       inOrden(node.izquierda);
       // imprime node.item
+      System.out.println(key+" "+node.carta);
+      mapa.put(key, node.carta);
+      key++;
       inOrden(node.derecha);
     }
+    return mapa;
   }
 
-  void postOrden(Nodo node) {
+  private HashMap<Integer, String> postOrden(Nodo node) {
     if (node != null) {
-      System.out.print(node.item + " ");
       postOrden(node.izquierda);
       postOrden(node.derecha);
+      System.out.println(key+" "+node.carta);
+      mapa.put(key, node.carta);
+      key++;
       // imprime nodo.item
     }
+    return mapa;
+  }
+
+  public HashMap<Integer, String> preOrden() {
+    mapa.clear();
+    key = 0;
+    return preOrden(this.raiz);
+  }
+
+  public HashMap<Integer, String> inOrden() {
+    mapa.clear();
+    key = 0;
+    return inOrden(this.raiz);
+
+  }
+
+  public HashMap<Integer, String> postOrden() {
+    mapa.clear();
+    key = 0;
+    return postOrden(this.raiz);
   }
 
   // Print the tree

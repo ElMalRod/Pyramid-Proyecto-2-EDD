@@ -73,25 +73,16 @@ public class ServicioUsuario {
    }
                            //get-level?level=
    @RequestMapping(value = "/prueba={id}", method = RequestMethod.GET)
-   public HashMap <Integer,String> jaja(@PathVariable("id") int id){
+   public HashMap <Integer,String> mandarNivel(@PathVariable("id") int id){
       
      
       return opNiveles.recibirNivel(id, tree);
    }
-
-   public void probar()
-   {
-      mapa.put( 1, "fas");
-      mapa.put( 2, "3♥");
-      mapa.put( 3, "4♥");
-      mapa.put( 4, "5♥");
+                     //avltree?transversal=postOrder
+   @RequestMapping(value = "/={orden}", method = RequestMethod.GET)
+   public HashMap <Integer,String> mandarOrden(@PathVariable("orden") String orden){
+      
+     
+     return opNiveles.recibirOrden(orden, tree);
    }
-   public void probar2()
-   {
-      mapa.put(1, "5♥");
-      mapa.put(2, "4♥");
-      mapa.put(3, "4534♥");
-      mapa.put(4, "5345♥");
-   }
- 
 }
