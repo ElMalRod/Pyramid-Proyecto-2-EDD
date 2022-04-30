@@ -6,10 +6,14 @@ package com.proyecto2.Pyramid.Controladores;
 
 import com.proyecto2.Pyramid.Modelos.Arbol;
 import com.proyecto2.Pyramid.Modelos.Operaciones;
+import com.proyecto2.Pyramid.Modelos.Niveles;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +30,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServicioUsuario {
    Arbol tree = new Arbol();
    Operaciones operaciones = new Operaciones();
+   Niveles opNiveles= new Niveles();
    List<String> result = new ArrayList<>();
+   HashMap<Integer, String> mapa= new HashMap<Integer, String>(); ;
+   int nivel=0;
    String nom = "carga correcta";
 
    @RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
@@ -64,5 +71,27 @@ public class ServicioUsuario {
 
       return "respuesta";
    }
+                           //get-level?level=
+   @RequestMapping(value = "/prueba={id}", method = RequestMethod.GET)
+   public HashMap <Integer,String> jaja(@PathVariable("id") int id){
+      
+     
+      return opNiveles.recibirNivel(id, tree);
+   }
 
+   public void probar()
+   {
+      mapa.put( 1, "fas");
+      mapa.put( 2, "3♥");
+      mapa.put( 3, "4♥");
+      mapa.put( 4, "5♥");
+   }
+   public void probar2()
+   {
+      mapa.put(1, "5♥");
+      mapa.put(2, "4♥");
+      mapa.put(3, "4534♥");
+      mapa.put(4, "5345♥");
+   }
+ 
 }

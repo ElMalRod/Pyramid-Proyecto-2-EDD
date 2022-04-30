@@ -23,6 +23,10 @@ public class Operaciones {
         return carta;
     }
 
+    public void setCarta(String carta) {
+        this.carta = carta;
+    }
+
     public String getInsert() {
         return insert;
     }
@@ -204,6 +208,7 @@ public class Operaciones {
             this.figura = "♠";
             this.item = num + 60;
         }
+        this.carta=carta;
     }
  
 }
