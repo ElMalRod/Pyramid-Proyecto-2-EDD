@@ -15,7 +15,7 @@ public class Arbol {
 
   public Nodo raiz;
   HashMap<Integer, String> mapa = new HashMap<Integer, String>();
-  int key=0;
+  int key = 0;
 
   int alturAvl(Nodo N) {
     if (N == null) {
@@ -241,26 +241,36 @@ public class Arbol {
     }
   }
 
+  int getLevelUtil(Nodo node, int data, int level) {
+    if (node == null)
+      return 0;
+
+    if (node.item == data)
+      return level;
+
+    int downlevel = getLevelUtil(node.izquierda, data, level + 1);
+    if (downlevel != 0)
+      return downlevel;
+
+    downlevel = getLevelUtil(node.derecha, data, level + 1);
+    return downlevel;
+  }
+
+  /* Returns level of given data value */
+  int getLevel(int data) {
+    return getLevelUtil(this.raiz, data, 1);
+  }
   // mandar carta hashmap
 
   private HashMap<Integer, String> encontrarCartaHashmap(Nodo node, int nivel) {
-    // if (node != null) {
-    // System.out.print(node.carta + " ");
-    // if (alturAvl(node)==nivel){
-    // key++;
-    // mapa.put(key, node.carta);
-    // }
-    // encontrarCartaHashmap(node.izquierda, nivel,key);
-    // encontrarCartaHashmap(node.derecha, nivel,key);
-    // }
-    // return mapa;
+
     if (node != null) {
-      System.out.println("CARTA: "+node.valor+" "+node.carta+ " "+key);
-      if (alturAvl(node)==nivel){
+
+      if (getLevel(node.item) == nivel) {
         mapa.put(key, node.carta);
         key++;
-        }
-        
+      }
+
       encontrarCartaHashmap(node.izquierda, nivel);
       encontrarCartaHashmap(node.derecha, nivel);
 
@@ -272,6 +282,7 @@ public class Arbol {
   public HashMap<Integer, String> mandarJsonNiveles(int nivel) {
     mapa.clear();
     key = 0;
+    // imprimirEntreConNivel();
     return encontrarCartaHashmap(this.raiz, nivel);
   }
 
