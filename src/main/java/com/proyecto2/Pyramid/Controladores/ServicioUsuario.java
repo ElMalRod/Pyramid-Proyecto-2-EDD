@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServicioUsuario {
    Arbol tree = new Arbol();
    Operaciones operaciones = new Operaciones();
-   Niveles opNiveles= new Niveles();
+   Niveles opNiveles = new Niveles();
    List<String> result = new ArrayList<>();
-   HashMap<Integer, String> mapa= new HashMap<Integer, String>(); ;
-   int nivel=0;
+   HashMap<Integer, String> mapa = new HashMap<Integer, String>();;
+   int nivel = 0;
    String nom = "carga correcta";
 
    @RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
@@ -71,18 +70,27 @@ public class ServicioUsuario {
 
       return "respuesta";
    }
-                           //get-level?level=
+
+   // get-level?level=
    @RequestMapping(value = "/prueba={id}", method = RequestMethod.GET)
-   public HashMap <Integer,String> mandarNivel(@PathVariable("id") int id){
-      
-     
+   public HashMap<Integer, String> mandarNivel(@PathVariable("id") int id) {
+
       return opNiveles.recibirNivel(id, tree);
    }
-                     //avltree?transversal=postOrder
+
+   // avltree?transversal=postOrder
    @RequestMapping(value = "/={orden}", method = RequestMethod.GET)
-   public HashMap <Integer,String> mandarOrden(@PathVariable("orden") String orden){
-      
-     
-     return opNiveles.recibirOrden(orden, tree);
+   public HashMap<Integer, String> mandarOrden(@PathVariable("orden") String orden) {
+
+      return opNiveles.recibirOrden(orden, tree);
    }
+
+   // Game/status-avltree
+   @RequestMapping(value = "/status", method = RequestMethod.GET)
+   public String generarImagen() {
+
+      opNiveles.graficarArbol(tree);
+      return".url";
+   }
+
 }

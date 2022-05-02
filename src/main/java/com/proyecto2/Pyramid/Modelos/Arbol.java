@@ -162,6 +162,9 @@ public class Arbol {
     return raiz;
   }
 
+  public void graficar(String path) {
+    raiz.graficar(path);
+}
   public HashMap<Integer, String> preOrden(Nodo node) {
     if (node != null) {
       System.out.println(key+" "+node.carta);

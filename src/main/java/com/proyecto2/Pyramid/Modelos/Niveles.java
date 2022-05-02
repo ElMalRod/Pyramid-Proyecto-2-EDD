@@ -31,4 +31,8 @@ public class Niveles {
             System.out.println("3");
         }
     }
+    public void graficarArbol(Arbol tree)
+    {
+        tree.graficar("tree.jpg");
+    }
 }
