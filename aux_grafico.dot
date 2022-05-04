@@ -1,9 +1,13 @@
 digraph grafica{
 rankdir=TB;
 node [shape =square, style=filled, fillcolor=gray100];
-nodo10 [ label ="10",fontcolor=black];
-nodo5 [ label ="5",fontcolor=black];
-nodo10:C0->nodo5
 nodo31 [ label ="31",fontcolor=red];
-nodo10:C1->nodo31
+nodo5 [ label ="5",fontcolor=black];
+nodo3 [ label ="3",fontcolor=black];
+nodo5:C0->nodo3
+nodo10 [ label ="10",fontcolor=black];
+nodo5:C1->nodo10
+nodo31:C0->nodo5
+nodo50 [ label ="50",fontcolor=red];
+nodo31:C1->nodo50
 }

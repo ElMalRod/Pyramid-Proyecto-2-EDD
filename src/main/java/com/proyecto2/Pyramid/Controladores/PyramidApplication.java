@@ -1,4 +1,4 @@
-package com.proyecto2.Pyramid;
+package com.proyecto2.Pyramid.Controladores;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,7 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+*/
 package com.proyecto2.Pyramid.Controladores;
 
 import com.proyecto2.Pyramid.Modelos.Arbol;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,12 +38,18 @@ public class ServicioUsuario {
    String nom = "carga correcta";
 
    @RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
-   public String getData(@RequestBody HashMap<String, String> data) {
+   public ResponseEntity<String> getData(@RequestBody HashMap<String, String> data) {
 
       for (String val : data.values()) {
          result.add(val);
       }
-      return operaciones.recibirPost(result, tree);
+      // return operaciones.recibirPost(result, tree);
+      if (operaciones.recibirPost(result, tree) == true) {
+         return new ResponseEntity<String>("Cartas ingresadas", HttpStatus.OK);
+      } else {
+         return new ResponseEntity<String>("No ingresado: cartas duplicadas", HttpStatus.NOT_ACCEPTABLE);
+      }
+
    }
 
    @RequestMapping("/ver")
@@ -52,45 +60,71 @@ public class ServicioUsuario {
    }
 
    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
-   public String getDataInsert(@RequestBody Operaciones data) {
+   public ResponseEntity<String> getDataInsert(@RequestBody Operaciones data) {
 
-      String respuesta = operaciones.recibirInsert(data.getInsert(), tree);
+      // String respuesta = operaciones.recibirInsert(data.getInsert(), tree);
+      if (operaciones.recibirInsert(data.getInsert(), tree) == true) {
+         return new ResponseEntity<String>("Cartas ingresadas", HttpStatus.OK);
+      } else {
+         return new ResponseEntity<String>("No ingresado: cartas duplicadas", HttpStatus.NOT_ACCEPTABLE);
+      }
 
-      return respuesta;
    }
 
    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = "application/json")
-   public String getDataDelete(@RequestBody Operaciones data) {
+   public ResponseEntity<String> getDataDelete(@RequestBody Operaciones data) {
 
       if (data.getDelete_2() != null) {
-         operaciones.ingresarDelete(data.getDelete_1(), data.getDelete_2(), tree);
+         // operaciones.ingresarDelete(data.getDelete_1(), data.getDelete_2(), tree);
+         if (operaciones.ingresarDelete(data.getDelete_1(), data.getDelete_2(), tree) == 4) {
+            return new ResponseEntity<String>("Cartas eliminadas", HttpStatus.OK);}
+         if (operaciones.ingresarDelete(data.getDelete_1(), data.getDelete_2(), tree) == 1) {
+               return new ResponseEntity<String>("Las cartas no suman 13", HttpStatus.NOT_ACCEPTABLE);}
+         if (operaciones.ingresarDelete(data.getDelete_1(), data.getDelete_2(), tree) == 2) {
+                  return new ResponseEntity<String>("La carta no se encuentra en el arbol", HttpStatus.NOT_FOUND);}
+         if (operaciones.ingresarDelete(data.getDelete_1(), data.getDelete_2(), tree) == 3) {
+               return new ResponseEntity<String>("La carta no se puede eliminar porque tiene hijos.", HttpStatus.CONFLICT);}
+         // } else {
+         //    return new ResponseEntity<String>("No ingresado: cartas duplicadas", HttpStatus.NOT_ACCEPTABLE);
+         // }
       } else {
-         operaciones.ingresarDelete(data.getDelete_1(), tree);
+         //if(operaciones.ingresarDelete(data.getDelete_1(), tree)==true)
+         if (operaciones.ingresarDelete(data.getDelete_1(), tree) == 4) {
+            return new ResponseEntity<String>("Cartas eliminadas", HttpStatus.OK);}
+         if (operaciones.ingresarDelete(data.getDelete_1(), tree) == 1) {
+               return new ResponseEntity<String>("Las cartas no suman 13", HttpStatus.NOT_ACCEPTABLE);}
+         if (operaciones.ingresarDelete(data.getDelete_1(), tree) == 2) {
+                  return new ResponseEntity<String>("La carta no se encuentra en el arbol", HttpStatus.NOT_FOUND);}
+         if (operaciones.ingresarDelete(data.getDelete_1(), tree) == 3) {
+               return new ResponseEntity<String>("La carta no se puede eliminar porque tiene hijos.", HttpStatus.CONFLICT);}
+         
       }
+      return new ResponseEntity<String>("Error al eliminar", HttpStatus.BAD_REQUEST);
 
-      return "respuesta";
+      //return "respuesta";
    }
 
    // get-level?level=
    @RequestMapping(value = "/prueba={id}", method = RequestMethod.GET)
-   public HashMap<Integer, String> mandarNivel(@PathVariable("id") int id) {
+   public ResponseEntity <HashMap<Integer, String>> mandarNivel(@PathVariable("id") int id) {
 
-      return opNiveles.recibirNivel(id, tree);
+      return new ResponseEntity<HashMap<Integer, String>> (opNiveles.recibirNivel(id, tree), HttpStatus.OK);
    }
 
    // avltree?transversal=postOrder
    @RequestMapping(value = "/={orden}", method = RequestMethod.GET)
-   public HashMap<Integer, String> mandarOrden(@PathVariable("orden") String orden) {
+   public ResponseEntity <HashMap<Integer, String>> mandarOrden(@PathVariable("orden") String orden) {
 
-      return opNiveles.recibirOrden(orden, tree);
+      //return opNiveles.recibirOrden(orden, tree);
+      return new ResponseEntity<HashMap<Integer, String>> (opNiveles.recibirOrden(orden, tree), HttpStatus.OK);
    }
 
    // Game/status-avltree
    @RequestMapping(value = "/status", method = RequestMethod.GET)
-   public String generarImagen() {
+   public ResponseEntity <String> generarImagen() {
 
       opNiveles.graficarArbol(tree);
-      return".url";
+      return new ResponseEntity<String> (".url", HttpStatus.OK);
    }
 
 }

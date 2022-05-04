@@ -67,24 +67,27 @@ public class Operaciones {
         this.figura = figura;
     }
 
-    public String recibirPost(List<String> result, Arbol tree) {
+    public Boolean recibirPost(List<String> result, Arbol tree) {
 
         for (int i = 0; i < result.size(); ++i) {
             obtenerValores(result.get(i));
             if (tree.existe(this.item) == false) {
                 tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta);
             } else {
-                return "Status Code 406";
+                //return "Status Code 406";
+                return false;
             }
 
         }
 
-        return "Cartas ingresadas";
+        //return "Cartas ingresadas";
+        return true;
 
     }
 
-    public void ingresarDelete(String d1, String d2, Arbol tree) {
+    public int ingresarDelete(String d1, String d2, Arbol tree) {
         /// ver si existe
+        //boolean aceptado=false;
         System.out.println("delete 1");
         int valorD1, itemD1; // auxiliares para carta 1
         int valorD2, itemD2; // auxilares para carta2
@@ -111,12 +114,16 @@ public class Operaciones {
                                 encontrado2.item);
                         tree.raiz = tree.eliminarNodo(tree.raiz, encontrado1.item);
                         tree.raiz = tree.eliminarNodo(tree.raiz, encontrado2.item);
+                        return 4; //return aceptado
 
                     }
-                }
-            }
+                } return 3; //retornar 409
+            } return 2; //retornar 404
+
+           
 
         }
+        return 1; //retornar 406
 
         /// si suman 13
         /// si estan en el ultimo nivel
@@ -124,7 +131,7 @@ public class Operaciones {
         // tree.verificarEliminar(d1, d2, tree);
     }
 
-    public void ingresarDelete(String delete, Arbol tree) {
+    public int ingresarDelete(String delete, Arbol tree) {
         obtenerValores(delete);
         System.out.println("delete 2");
         if (this.num == 13) {
@@ -138,19 +145,22 @@ public class Operaciones {
 
                     System.out.println("4. eliminado " + encontrado1.item);
                     tree.raiz = tree.eliminarNodo(tree.raiz, encontrado1.item);
+                    return 4;// aceptado
 
-                }
-            }
+                }return 3;// 409
+            } return 2; //404
         }
+        return 1; //406 cualquier otro error
     }
 
-    public String recibirInsert(String insert, Arbol tree) {
+    public Boolean recibirInsert(String insert, Arbol tree) {
         obtenerValores(insert);
         if (tree.existe(this.item) == false) {
             tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta);
-            return "Carta ingresada";
+            //return "Carta ingresada";
+            return true;
         } else {
-            return "Status Code 406";
+            return false;
         }
 
     }
