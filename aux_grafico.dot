@@ -1,13 +1,13 @@
 digraph grafica{
 rankdir=TB;
-node [shape =square, style=filled, fillcolor=gray100];
-nodo31 [ label ="31",fontcolor=red];
-nodo5 [ label ="5",fontcolor=black];
-nodo3 [ label ="3",fontcolor=black];
-nodo5:C0->nodo3
-nodo10 [ label ="10",fontcolor=black];
-nodo5:C1->nodo10
-nodo31:C0->nodo5
-nodo50 [ label ="50",fontcolor=red];
-nodo31:C1->nodo50
+node [shape =record, style=filled, fillcolor=gray100];
+nodo11 [ label ="<C0>|11|<C1>"];
+nodo10 [ label ="<C0>|10|<C1>"];
+nodo3 [ label ="3"];
+nodo10:C0->nodo3
+nodo13 [ label ="13"];
+nodo10:C1->nodo13
+nodo11:C0->nodo10
+nodo10 [ label ="10"];
+nodo11:C1->nodo10
 }

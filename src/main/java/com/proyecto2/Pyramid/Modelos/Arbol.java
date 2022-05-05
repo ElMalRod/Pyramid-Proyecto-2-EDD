@@ -47,7 +47,6 @@ public class Arbol {
     y.altura = max(alturAvl(y.izquierda), alturAvl(y.derecha)) + 1;
     return y;
   }
-
   // Get balance factor of a node
   int getFactorEquilibrio(Nodo N) {
     if (N == null) {
@@ -55,7 +54,6 @@ public class Arbol {
     }
     return alturAvl(N.izquierda) - alturAvl(N.derecha);
   }
-
   // Insert a
   // node--------------------------------------------------------------------------
   Nodo insertarNodo(Nodo node, int item, int valor, String carta) {
@@ -72,8 +70,8 @@ public class Arbol {
       return node;
     }
 
-    // Update the balance factor of each node
-    // And, balance the tree
+    // Actualizacion del factor de balance de cada nodo
+    // y, balace del arbol
     node.altura = 1 + max(alturAvl(node.izquierda), alturAvl(node.derecha));
     int balanceFactor = getFactorEquilibrio(node);
     if (balanceFactor > 1) {
@@ -105,10 +103,10 @@ public class Arbol {
     return current;
   }
 
-  // Delete a node
+  // Metodo de eliminar nodo
   Nodo eliminarNodo(Nodo raiz, int item) {
 
-    // Find the node to be deleted and remove it
+    // Encontrar el nodo a eliminar y eliminarlo
     if (raiz == null) {
       return raiz;
     }
@@ -140,7 +138,7 @@ public class Arbol {
       return raiz;
     }
 
-    // Update the balance factor of each node and balance the tree
+    // actualizacion del factor de equilibrico y balancear el arbolito
     raiz.altura = max(alturAvl(raiz.izquierda), alturAvl(raiz.derecha)) + 1;
     int balanceFactor = getFactorEquilibrio(raiz);
     if (balanceFactor > 1) {
@@ -165,6 +163,10 @@ public class Arbol {
   public void graficar(String path) {
     raiz.graficar(path);
 }
+  /**Metodos de PRE,POST y IN Orden los privados es el metodo recursivo
+   * para hacer el recorrido y los publicos mandan la raiz y devuelven un
+   * Hashmap
+   */
   public HashMap<Integer, String> preOrden(Nodo node) {
     if (node != null) {
       System.out.println(key+" "+node.carta);
@@ -175,7 +177,6 @@ public class Arbol {
     }   
     return mapa;
   }
-
   private HashMap<Integer, String> inOrden(Nodo node) {
     if (node != null) {
       inOrden(node.izquierda);
@@ -187,7 +188,6 @@ public class Arbol {
     }
     return mapa;
   }
-
   private HashMap<Integer, String> postOrden(Nodo node) {
     if (node != null) {
       postOrden(node.izquierda);
@@ -199,7 +199,6 @@ public class Arbol {
     }
     return mapa;
   }
-
   public HashMap<Integer, String> preOrden() {
     mapa.clear();
     key = 0;
@@ -219,7 +218,7 @@ public class Arbol {
     return postOrden(this.raiz);
   }
 
-  // Print the tree
+  // Metodo para Imprmir el Arbol
   public void imprimir(Nodo currPtr, String indent, boolean last) {
     if (currPtr != null) {
       System.out.print(indent);
@@ -237,6 +236,9 @@ public class Arbol {
   }
 
   // -------------------------------------
+  /** Metodos para verificar si existe el nodo en 
+   * el arbol
+   */
   public boolean existe(int busqueda) {
     return existe(this.raiz, busqueda);
   }
@@ -286,13 +288,11 @@ public class Arbol {
     downlevel = getLevelUtil(node.derecha, data, level + 1);
     return downlevel;
   }
-
   /* Returns level of given data value */
   int getLevel(int data) {
     return getLevelUtil(this.raiz, data, 1);
   }
   // mandar carta hashmap
-
   private HashMap<Integer, String> encontrarCartaHashmap(Nodo node, int nivel) {
 
     if (node != null) {

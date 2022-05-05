@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Niveles {
     String carta;
+    /**Estos hasmap devuelven el request de los metodos  */
     HashMap<Integer, String> mapa = new HashMap<Integer, String>();
 
     public HashMap<Integer, String> recibirNivel(int nivel, Arbol tree) {
@@ -34,5 +35,12 @@ public class Niveles {
     public void graficarArbol(Arbol tree)
     {
         tree.graficar("tree.jpg");
+    }
+    public HashMap<String, String> graficarJson(Arbol tree)
+    {
+        HashMap<String, String> mapa = new HashMap<String, String>();
+        mapa.put("url","https://5663-2803-d100-e000-f79-1406-d160-70e9-7c0c.ngrok.io/Game/tree");
+        return mapa;
+
     }
 }

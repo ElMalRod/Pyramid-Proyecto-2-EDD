@@ -12,7 +12,7 @@ import java.util.List;
  * @author emili
  */
 public class Operaciones {
-
+    //variables
     int num, item;
     String carta;
     String figura;
@@ -35,6 +35,7 @@ public class Operaciones {
         this.insert = insert;
     }
 
+   
     public String getDelete_1() {
         return delete_1;
     }
@@ -67,6 +68,7 @@ public class Operaciones {
         this.figura = figura;
     }
 
+     /*Metodos que reciben el request del Start*/
     public Boolean recibirPost(List<String> result, Arbol tree) {
 
         for (int i = 0; i < result.size(); ++i) {
@@ -84,7 +86,7 @@ public class Operaciones {
         return true;
 
     }
-
+        /*Metodos que reciben el request del elimnar*/
     public int ingresarDelete(String d1, String d2, Arbol tree) {
         /// ver si existe
         //boolean aceptado=false;
@@ -152,7 +154,7 @@ public class Operaciones {
         }
         return 1; //406 cualquier otro error
     }
-
+     /*Metodos que reciben el request del add*/
     public Boolean recibirInsert(String insert, Arbol tree) {
         obtenerValores(insert);
         if (tree.existe(this.item) == false) {
@@ -164,13 +166,12 @@ public class Operaciones {
         }
 
     }
-
+     /*Metodos que clasifica el valor de las cartas */
     public void obtenerValores(String carta) {
 
         for (int i = 0; i < carta.length(); i++) {
             // ver si es un numero
 
-            // System.out.println("char" +carta.charAt(i));
             if (Character.toString(carta.charAt(i)).matches("[0-9?]")) {
 
                 if (carta.contains("10")) {

@@ -8,9 +8,13 @@ import com.proyecto2.Pyramid.Modelos.Arbol;
 import com.proyecto2.Pyramid.Modelos.Operaciones;
 import com.proyecto2.Pyramid.Modelos.Niveles;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 /**
  *
@@ -121,10 +127,22 @@ public class ServicioUsuario {
 
    // Game/status-avltree
    @RequestMapping(value = "/status", method = RequestMethod.GET)
-   public ResponseEntity <String> generarImagen() {
+   public  ResponseEntity <HashMap<String, String>> generarImagen() {
 
       opNiveles.graficarArbol(tree);
-      return new ResponseEntity<String> (".url", HttpStatus.OK);
+      //opNiveles.graficarJson(tree);
+      return new ResponseEntity<HashMap<String, String>> (opNiveles.graficarJson(tree), HttpStatus.OK);
    }
+   @RequestMapping(value = "/tree",method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getImage() throws IOException {
+    RandomAccessFile f = new RandomAccessFile("C:/Users/emili/OneDrive/Escritorio/PROYECTOS/EstructuraDeDatos/Pyramid EDD/Proyecto2EDD/tree.jpg", "r");
+    byte[] b = new byte[(int)f.length()];
+    f.readFully(b);
+    final HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.IMAGE_PNG);
+    return new ResponseEntity<byte[]>(b, headers, HttpStatus.CREATED);
+
+}
+
 
 }

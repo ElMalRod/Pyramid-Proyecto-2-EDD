@@ -67,7 +67,7 @@ public class Nodo {
     private String getCodigoGraphviz() {
         return "digraph grafica{\n"
                 + "rankdir=TB;\n"
-                + "node [shape =square, style=filled, fillcolor=gray100];\n"
+                + "node [shape =record, style=filled, fillcolor=gray100];\n"
                 + getCodigoInterno()
                 + "}\n";
     }
@@ -80,26 +80,28 @@ public class Nodo {
      * @return
      */
     private String getCodigoInterno() {
-        String etiqueta;
+        
+                String etiqueta;
+       
         if (izquierda == null && derecha == null) {
             // treboles
             if (item >= 0 && item <= 20 || item >= 60 && item <= 73) {
-                etiqueta = "nodo" + item + " [ label =\"" + item + "\",fontcolor=black];\n";
-            }else {etiqueta = "nodo" + item + " [ label =\"" + item + "\",fontcolor=red];\n";}
+                etiqueta = "nodo" + valor + " [ label =\"" + valor + "\",fontcolor=black];\n";
+            }else {etiqueta = "nodo" + valor + " [ label =\"" + valor + "\",fontcolor=red];\n";}
 
         } else {
             if (item >= 0 && item <= 20 || item >= 60 && item <= 73) {
-                etiqueta = "nodo" + item + " [ label =\"" + item + "\",fontcolor=black];\n";
-            }else { etiqueta = "nodo" + item + " [ label =\"" + item + "\",fontcolor=red];\n";}
+                etiqueta = "nodo" + valor + " [ label =\"" + valor + "\",fontcolor=black];\n";
+            }else { etiqueta = "nodo" + valor + " [ label =\"" + valor + "\",fontcolor=red];\n";}
            
         }
         if (izquierda != null) {
             etiqueta = etiqueta + izquierda.getCodigoInterno()
-                    + "nodo" + item + ":C0->nodo" + izquierda.item + "\n";
+                    + "nodo" + valor + ":C0->nodo" + izquierda.valor + "\n";
         }
         if (izquierda != null) {
             etiqueta = etiqueta + derecha.getCodigoInterno()
-                    + "nodo" + item + ":C1->nodo" + derecha.item + "\n";
+                    + "nodo" + valor + ":C1->nodo" + derecha.valor + "\n";
         }
         return etiqueta;
     }
