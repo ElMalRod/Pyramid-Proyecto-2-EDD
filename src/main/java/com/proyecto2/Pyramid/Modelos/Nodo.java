@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 public class Nodo {
 
     int item, altura, valor;// item guarda el valor completo de la carta para el backend , valor guarda el
-                            // valor superficial para el frontend
+    // valor superficial para el frontend
     Nodo izquierda;
     Nodo derecha;
     String carta;// es el valor de la carta con su simbolo
@@ -26,7 +26,7 @@ public class Nodo {
         this.altura = 1;
         this.valor = valor;
         this.carta = carta;
-        this.id=id;
+        this.id = id;
 
     }
 
@@ -82,23 +82,52 @@ public class Nodo {
      * @return
      */
     private String getCodigoInterno() {
-        
-                String etiqueta;
-        if(izquierda==null && derecha==null){
-            etiqueta="nodo"+id+" [ label =\""+valor+"\"];\n";
-        }else{
-            etiqueta="nodo"+id+" [ label =\"<C0>|"+valor+"|<C1>\"];\n";
+
+        String etiqueta;
+        if (izquierda == null && derecha == null) {
+            //--
+            if ((item >= 0 && item < 20) || (item >= 60 && item <= 73)) {
+                if ((item >= 0 && item < 20)) {
+                    etiqueta = "nodo" + id + " [ label =\"" + valor + "T" + "\", fontcolor=black];\n";
+                } else {
+                    etiqueta = "nodo" + id + " [ label =\"" + valor + "P" + "\", fontcolor=black];\n";
+                }
+            } else {
+                if ((item >= 20 && item < 33)) {
+                    etiqueta = "nodo" + id + " [ label =\"" + valor + "D" + "\", fontcolor=red];\n";
+                } else {
+                    etiqueta = "nodo" + id + " [ label =\"" + valor + "C" + "\", fontcolor=red];\n";
+                }
+            }
+            //--
+
+        } else {
+            //--
+            if ((item >= 0 && item <= 20) || (item >= 60 && item <= 73)) {
+                if ((item >= 0 && item < 20)) {
+                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valor + "T" + "|<C1>\", fontcolor=black];\n";
+                } else {
+                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valor + "P" + "|<C1>\", fontcolor=black];\n";
+                }
+            } else {
+                if ((item >= 20 && item < 33)) {
+                etiqueta = "nodo" + id + " [ label =\"<C0>|" + valor +"D"+ "|<C1>\", fontcolor=red];\n";}
+                else{
+                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valor +"C"+ "|<C1>\", fontcolor=red];\n";
+                }
+            }
+            //--
         }
-        if(izquierda!=null){
-            etiqueta=etiqueta + izquierda.getCodigoInterno() +
-               "nodo"+id+":C0->nodo"+izquierda.id+"\n";
+        if (izquierda != null) {
+            etiqueta = etiqueta + izquierda.getCodigoInterno()
+                    + "nodo" + id + ":C0->nodo" + izquierda.id + "\n";
         }
-        if(derecha!=null){
-            etiqueta=etiqueta + derecha.getCodigoInterno() +
-               "nodo"+id+":C1->nodo"+derecha.id+"\n";                    
+        if (derecha != null) {
+            etiqueta = etiqueta + derecha.getCodigoInterno()
+                    + "nodo" + id + ":C1->nodo" + derecha.id + "\n";
         }
         return etiqueta;
-       
+
         /*if (izquierda == null && derecha == null) {
             // treboles
             if (item >= 0 && item <= 20 || item >= 60 && item <= 73) {

@@ -1,15 +1,17 @@
 digraph grafica{
 rankdir=TB;
 node [shape =record, style=filled, fillcolor=gray100];
-nodo3 [ label ="<C0>|11|<C1>"];
-nodo4 [ label ="<C0>|4|<C1>"];
-nodo1 [ label ="3"];
+nodo3 [ label ="<C0>|11D|<C1>", fontcolor=red];
+nodo4 [ label ="<C0>|4T|<C1>", fontcolor=black];
+nodo1 [ label ="3T", fontcolor=black];
 nodo4:C0->nodo1
-nodo7 [ label ="10"];
+nodo7 [ label ="1D", fontcolor=red];
 nodo4:C1->nodo7
 nodo3:C0->nodo4
-nodo5 [ label ="<C0>|1|<C1>"];
-nodo2 [ label ="10"];
+nodo5 [ label ="<C0>|1C|<C1>", fontcolor=red];
+nodo6 [ label ="13C", fontcolor=red];
+nodo5:C0->nodo6
+nodo2 [ label ="10C", fontcolor=red];
 nodo5:C1->nodo2
 nodo3:C1->nodo5
 }
