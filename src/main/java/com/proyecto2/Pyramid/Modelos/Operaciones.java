@@ -224,5 +224,6 @@ public class Operaciones {
         }
         this.carta=carta;
     }
+    
  
 }

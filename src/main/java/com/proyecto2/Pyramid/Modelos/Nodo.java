@@ -88,15 +88,15 @@ public class Nodo {
             //--
             if ((item >= 0 && item < 20) || (item >= 60 && item <= 73)) {
                 if ((item >= 0 && item < 20)) {
-                    etiqueta = "nodo" + id + " [ label =\"" + valor + "T" + "\", fontcolor=black];\n";
+                    etiqueta = "nodo" + id + " [ label =\"" + valorGraficar() + " T" + "\", fontcolor=black];\n";
                 } else {
-                    etiqueta = "nodo" + id + " [ label =\"" + valor + "P" + "\", fontcolor=black];\n";
+                    etiqueta = "nodo" + id + " [ label =\"" + valorGraficar() + " P" + "\", fontcolor=black];\n";
                 }
             } else {
                 if ((item >= 20 && item < 33)) {
-                    etiqueta = "nodo" + id + " [ label =\"" + valor + "D" + "\", fontcolor=red];\n";
+                    etiqueta = "nodo" + id + " [ label =\"" + valorGraficar() + " D" + "\", fontcolor=red];\n";
                 } else {
-                    etiqueta = "nodo" + id + " [ label =\"" + valor + "C" + "\", fontcolor=red];\n";
+                    etiqueta = "nodo" + id + " [ label =\"" + valorGraficar() + " C" + "\", fontcolor=red];\n";
                 }
             }
             //--
@@ -105,15 +105,15 @@ public class Nodo {
             //--
             if ((item >= 0 && item <= 20) || (item >= 60 && item <= 73)) {
                 if ((item >= 0 && item < 20)) {
-                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valor + "T" + "|<C1>\", fontcolor=black];\n";
+                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valorGraficar() + " T" + "|<C1>\", fontcolor=black];\n";
                 } else {
-                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valor + "P" + "|<C1>\", fontcolor=black];\n";
+                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valorGraficar() + " P" + "|<C1>\", fontcolor=black];\n";
                 }
             } else {
                 if ((item >= 20 && item < 33)) {
-                etiqueta = "nodo" + id + " [ label =\"<C0>|" + valor +"D"+ "|<C1>\", fontcolor=red];\n";}
-                else{
-                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valor +"C"+ "|<C1>\", fontcolor=red];\n";
+                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valorGraficar() + " D" + "|<C1>\", fontcolor=red];\n";
+                } else {
+                    etiqueta = "nodo" + id + " [ label =\"<C0>|" + valorGraficar() + " C" + "|<C1>\", fontcolor=red];\n";
                 }
             }
             //--
@@ -127,27 +127,31 @@ public class Nodo {
                     + "nodo" + id + ":C1->nodo" + derecha.id + "\n";
         }
         return etiqueta;
+    }
 
-        /*if (izquierda == null && derecha == null) {
-            // treboles
-            if (item >= 0 && item <= 20 || item >= 60 && item <= 73) {
-                etiqueta = "nodo" + id + " [ label =\"" + valor + "\",fontcolor=black];\n";
-            }else {etiqueta = "nodo" + id + " [ label =\"" + valor + "\",fontcolor=red];\n";}
+    private String valorGraficar() {
+        String valorG="";
+        if (valor == 11) {
+            valorG = "J";
+            return valorG;
+        }
+        else if (valor == 1) {
+            valorG = "A";
+            return valorG;
+        }
+        else if (valor == 12) {
+            valorG = "Q";
+            return valorG;
+        }
+        else if (valor == 13) {
+            valorG = "K";
+            return valorG;
+        } else if(valor>=2 && valor<=10) {
+            valorG = Integer.toString(valor);
+            return valorG;
+        }
 
-        } else {
-            if (item >= 0 && item <= 20 || item >= 60 && item <= 73) {
-                etiqueta = "nodo" + id + " [ label =\"" + valor + "\",fontcolor=black];\n";
-            }else { etiqueta = "nodo" + id + " [ label =\"" + valor + "\",fontcolor=red];\n";}
-           
-        }
-        if (izquierda != null) {
-            etiqueta = etiqueta + izquierda.getCodigoInterno()
-                    + "nodo" + id + ":C0->nodo" + izquierda.id + "\n";
-        }
-        if (izquierda != null) {
-            etiqueta = etiqueta + derecha.getCodigoInterno()
-                    + "nodo" + id + ":C1->nodo" + derecha.id + "\n";
-        }
-        return etiqueta;*/
+        return valorG;
+
     }
 }
