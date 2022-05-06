@@ -5,6 +5,7 @@
  */
 package com.proyecto2.Pyramid.Modelos;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -56,16 +57,16 @@ public class Arbol {
   }
   // Insert a
   // node--------------------------------------------------------------------------
-  Nodo insertarNodo(Nodo node, int item, int valor, String carta) {
+  Nodo insertarNodo(Nodo node, int item, int valor, String carta, int id) {
 
     // Find the position and insert the node
     if (node == null) {
-      return (new Nodo(item, valor, carta));
+      return (new Nodo(item, valor, carta, id));
     }
     if (item < node.item) {
-      node.izquierda = insertarNodo(node.izquierda, item, valor, carta);
+      node.izquierda = insertarNodo(node.izquierda, item, valor, carta, id);
     } else if (item > node.item) {
-      node.derecha = insertarNodo(node.derecha, item, valor, carta);
+      node.derecha = insertarNodo(node.derecha, item, valor, carta,id);
     } else {
       return node;
     }
@@ -273,6 +274,11 @@ public class Arbol {
       return encontrarNodo(n.derecha, busqueda);
     }
   }
+  // este metodo limpia el .dot para generar la nueva imagen
+  public void eliminarfichero(){
+    File fichero = new File("aux_grafico.dot");
+    fichero.delete();
+    }
 
   int getLevelUtil(Nodo node, int data, int level) {
     if (node == null)

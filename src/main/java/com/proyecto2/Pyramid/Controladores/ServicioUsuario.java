@@ -135,7 +135,7 @@ public class ServicioUsuario {
    }
    @RequestMapping(value = "/tree",method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage() throws IOException {
-    RandomAccessFile f = new RandomAccessFile("C:/Users/emili/OneDrive/Escritorio/PROYECTOS/EstructuraDeDatos/Pyramid EDD/Proyecto2EDD/tree.jpg", "r");
+    RandomAccessFile f = new RandomAccessFile("C:/Users/emili/OneDrive/Escritorio/PROYECTOS/EstructuraDeDatos/Pyramid EDD/Pyramid-Proyecto-2-EDD/tree.jpg", "r");
     byte[] b = new byte[(int)f.length()];
     f.readFully(b);
     final HttpHeaders headers = new HttpHeaders();

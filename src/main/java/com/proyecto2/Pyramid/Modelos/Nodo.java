@@ -19,12 +19,14 @@ public class Nodo {
     Nodo izquierda;
     Nodo derecha;
     String carta;// es el valor de la carta con su simbolo
+    int id;
 
-    Nodo(int d, int valor, String carta) {
+    Nodo(int d, int valor, String carta, int id) {
         this.item = d;
         this.altura = 1;
         this.valor = valor;
         this.carta = carta;
+        this.id=id;
 
     }
 
@@ -82,27 +84,41 @@ public class Nodo {
     private String getCodigoInterno() {
         
                 String etiqueta;
+        if(izquierda==null && derecha==null){
+            etiqueta="nodo"+id+" [ label =\""+valor+"\"];\n";
+        }else{
+            etiqueta="nodo"+id+" [ label =\"<C0>|"+valor+"|<C1>\"];\n";
+        }
+        if(izquierda!=null){
+            etiqueta=etiqueta + izquierda.getCodigoInterno() +
+               "nodo"+id+":C0->nodo"+izquierda.id+"\n";
+        }
+        if(derecha!=null){
+            etiqueta=etiqueta + derecha.getCodigoInterno() +
+               "nodo"+id+":C1->nodo"+derecha.id+"\n";                    
+        }
+        return etiqueta;
        
-        if (izquierda == null && derecha == null) {
+        /*if (izquierda == null && derecha == null) {
             // treboles
             if (item >= 0 && item <= 20 || item >= 60 && item <= 73) {
-                etiqueta = "nodo" + valor + " [ label =\"" + valor + "\",fontcolor=black];\n";
-            }else {etiqueta = "nodo" + valor + " [ label =\"" + valor + "\",fontcolor=red];\n";}
+                etiqueta = "nodo" + id + " [ label =\"" + valor + "\",fontcolor=black];\n";
+            }else {etiqueta = "nodo" + id + " [ label =\"" + valor + "\",fontcolor=red];\n";}
 
         } else {
             if (item >= 0 && item <= 20 || item >= 60 && item <= 73) {
-                etiqueta = "nodo" + valor + " [ label =\"" + valor + "\",fontcolor=black];\n";
-            }else { etiqueta = "nodo" + valor + " [ label =\"" + valor + "\",fontcolor=red];\n";}
+                etiqueta = "nodo" + id + " [ label =\"" + valor + "\",fontcolor=black];\n";
+            }else { etiqueta = "nodo" + id + " [ label =\"" + valor + "\",fontcolor=red];\n";}
            
         }
         if (izquierda != null) {
             etiqueta = etiqueta + izquierda.getCodigoInterno()
-                    + "nodo" + valor + ":C0->nodo" + izquierda.valor + "\n";
+                    + "nodo" + id + ":C0->nodo" + izquierda.id + "\n";
         }
         if (izquierda != null) {
             etiqueta = etiqueta + derecha.getCodigoInterno()
-                    + "nodo" + valor + ":C1->nodo" + derecha.valor + "\n";
+                    + "nodo" + id + ":C1->nodo" + derecha.id + "\n";
         }
-        return etiqueta;
+        return etiqueta;*/
     }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 public class Operaciones {
     //variables
     int num, item;
+    int cont;
     String carta;
     String figura;
     String insert;
@@ -74,7 +75,8 @@ public class Operaciones {
         for (int i = 0; i < result.size(); ++i) {
             obtenerValores(result.get(i));
             if (tree.existe(this.item) == false) {
-                tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta);
+                cont++;
+                tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta,cont);
             } else {
                 //return "Status Code 406";
                 return false;
@@ -158,7 +160,8 @@ public class Operaciones {
     public Boolean recibirInsert(String insert, Arbol tree) {
         obtenerValores(insert);
         if (tree.existe(this.item) == false) {
-            tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta);
+            cont++;
+            tree.raiz = tree.insertarNodo(tree.raiz, item, num, carta,cont);
             //return "Carta ingresada";
             return true;
         } else {

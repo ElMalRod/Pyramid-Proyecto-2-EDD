@@ -1,10 +1,16 @@
 package com.proyecto2.Pyramid.Modelos;
 
+import static java.lang.Thread.sleep;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Niveles {
+
     String carta;
-    /**Estos hasmap devuelven el request de los metodos  */
+    /**
+     * Estos hasmap devuelven el request de los metodos
+     */
     HashMap<Integer, String> mapa = new HashMap<Integer, String>();
 
     public HashMap<Integer, String> recibirNivel(int nivel, Arbol tree) {
@@ -32,14 +38,20 @@ public class Niveles {
             System.out.println("3");
         }
     }
-    public void graficarArbol(Arbol tree)
-    {
+
+    public void graficarArbol(Arbol tree) {
+        tree.eliminarfichero();
+        try {
+            sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Niveles.class.getName()).log(Level.SEVERE, null, ex);
+        }
         tree.graficar("tree.jpg");
     }
-    public HashMap<String, String> graficarJson(Arbol tree)
-    {
+
+    public HashMap<String, String> graficarJson(Arbol tree) {
         HashMap<String, String> mapa = new HashMap<String, String>();
-        mapa.put("url","https://5663-2803-d100-e000-f79-1406-d160-70e9-7c0c.ngrok.io/Game/tree");
+        mapa.put("url", "https://2eda-2803-d100-e000-f79-71f9-ceef-6328-49d1.ngrok.io/Game/tree");
         return mapa;
 
     }
