@@ -111,14 +111,14 @@ public class ServicioUsuario {
    }
 
    // get-level?level=
-   @RequestMapping(value = "/prueba={id}", method = RequestMethod.GET)
+   @RequestMapping(value = "/get-level?level={id}", method = RequestMethod.GET)
    public ResponseEntity <HashMap<Integer, String>> mandarNivel(@PathVariable("id") int id) {
 
       return new ResponseEntity<HashMap<Integer, String>> (opNiveles.recibirNivel(id, tree), HttpStatus.OK);
    }
 
    // avltree?transversal=postOrder
-   @RequestMapping(value = "/={orden}", method = RequestMethod.GET)
+   @RequestMapping(value = "/avltree?transversal={orden}", method = RequestMethod.GET)
    public ResponseEntity <HashMap<Integer, String>> mandarOrden(@PathVariable("orden") String orden) {
 
       //return opNiveles.recibirOrden(orden, tree);
@@ -126,7 +126,7 @@ public class ServicioUsuario {
    }
 
    // Game/status-avltree
-   @RequestMapping(value = "/status", method = RequestMethod.GET)
+   @RequestMapping(value = "/status-avltree", method = RequestMethod.GET)
    public  ResponseEntity <HashMap<String, String>> generarImagen() {
 
       opNiveles.graficarArbol(tree);
