@@ -8,6 +8,15 @@ import java.util.logging.Logger;
 public class Niveles {
 
     String carta;
+    int nivel;
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
     /**
      * Estos hasmap devuelven el request de los metodos
      */
@@ -15,6 +24,11 @@ public class Niveles {
 
     public HashMap<Integer, String> recibirNivel(int nivel, Arbol tree) {
         return tree.mandarJsonNiveles(nivel);
+    }
+    
+    public void niveles(int nivel, Arbol tree)
+    {
+        
     }
 
     public HashMap<Integer, String> recibirOrden(String orden, Arbol tree) {
@@ -42,7 +56,7 @@ public class Niveles {
     public void graficarArbol(Arbol tree) {
         tree.eliminarfichero();
         try {
-            sleep(2000);
+            sleep(1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Niveles.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -51,7 +65,7 @@ public class Niveles {
 
     public HashMap<String, String> graficarJson(Arbol tree) {
         HashMap<String, String> mapa = new HashMap<String, String>();
-        mapa.put("url", "https://2eda-2803-d100-e000-f79-71f9-ceef-6328-49d1.ngrok.io/Game/tree");
+        mapa.put("path", "https://6ed9-2803-d100-e000-f79-9d67-d19-4fe8-958.ngrok.io/Game/tree");
         return mapa;
 
     }

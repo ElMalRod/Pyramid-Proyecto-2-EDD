@@ -15,6 +15,7 @@ public class Operaciones {
     //variables
     int num, item;
     int cont;
+    
     String carta;
     String figura;
     String insert;
